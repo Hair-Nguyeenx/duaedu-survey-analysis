@@ -1,0 +1,14 @@
+{
+    "sqltools.connections": [
+        {
+            "ssh": "Disabled",
+            "previewLimit": 100,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "duaedu_prj",
+            "database": "duaedu_project",
+            "username": "postgres"
+        }
+    ]
+}

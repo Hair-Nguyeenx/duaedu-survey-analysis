@@ -1,0 +1,7 @@
+project-DA/
+├── data/           # raw + cleaned data
+├── sql/            # cleaning + EDA queries
+├── notebooks/      # Python analysis (nếu có)
+├── dashboard/      # Power BI file hoặc screenshot
+├── docs/           # báo cáo phân tích
+└── README.md       # tổng quan project
