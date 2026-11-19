@@ -1,6 +1,6 @@
 import pandas as pd
 
-data = pd.read_csv("../../data/survey_responses_cleaned.csv")
+data = pd.read_csv("../data/survey_responses_cleaned.csv")
 
 # Q1.1
 
