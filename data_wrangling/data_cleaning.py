@@ -29,7 +29,7 @@ print(f"[2] Cột email_address sẽ bị loại bỏ sau bước xử lý dupli
 # 3. XỬ LÝ DUPLICATE (theo email)
 # ============================================================
 # Chiến lược: giữ response cuối cùng (mới nhất) cho mỗi email
-df["_email_lower"] = email_col
+df["email_address"] = email_col
 
 # Parse timestamp trước để sắp xếp
 df["_ts_parsed"] = pd.to_datetime(
@@ -37,14 +37,14 @@ df["_ts_parsed"] = pd.to_datetime(
 )
 
 # Dòng có email trống: luôn giữ
-mask_blank_email = df["_email_lower"].isna() | (df["_email_lower"] == "")
+mask_blank_email = df["email_address"].isna() | (df["email_address"] == "")
 df_blank = df[mask_blank_email].copy()
 
 # Dòng có email: giữ response cuối cùng
 df_with_email = df[~mask_blank_email].copy()
 df_with_email = df_with_email.sort_values("_ts_parsed", ascending=True)
 before_dedup = len(df_with_email)
-df_with_email = df_with_email.drop_duplicates(subset="_email_lower", keep="last")
+df_with_email = df_with_email.drop_duplicates(subset="email_address", keep="last")
 after_dedup = len(df_with_email)
 
 df = pd.concat([df_with_email, df_blank], ignore_index=True)
@@ -52,10 +52,6 @@ df = df.sort_values("_ts_parsed", ascending=True).reset_index(drop=True)
 
 removed = before_dedup - after_dedup
 print(f"[3] Xử lý duplicate: loại {removed} dòng trùng email, giữ response mới nhất")
-
-# Loại bỏ cột tạm + email
-df.drop(columns=["_email_lower", "email_address"], inplace=True)
-print(f"[3] Loại bỏ cột email_address (PII)")
 
 # ============================================================
 # 4. TRIM KHOẢNG TRẮNG TẤT CẢ CỘT TEXT
