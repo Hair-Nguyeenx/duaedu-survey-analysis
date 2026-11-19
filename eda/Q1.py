@@ -1,6 +1,10 @@
 import pandas as pd
+from pathlib import Path
 
-data = pd.read_csv("../data/survey_responses_cleaned.csv")
+BASE_DIR = Path(__file__).resolve().parents[1]
+DATA_PATH = BASE_DIR / 'data' / "survey_responses_cleaned.csv"
+
+data = pd.read_csv(DATA_PATH)
 
 # Q1.1
 
@@ -23,7 +27,7 @@ goal_pct = goal_num / goal_exploded.shape[0]
 goal_pct_by_role = goal_exploded.groupby('current_role')['primary_goal'].value_counts(normalize=True).reset_index().sort_values(by=['current_role','proportion'], ascending=False)
 
 print(goal_pct)
-print(goal_pct_by_role.groupby('current_role').head(3))
+print(goal_pct_by_role)
 
 # Q1.3
 
